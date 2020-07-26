@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Conversorunidades";
+}
+@{
+    var data = ViewBag.Conversion;
+}
+
+<legend class="m-4">Conversor de unidades</legend>
+
+<form method="post">
+    <div class="form-row">
+        <div class="col m-1">
+            <input type="number" class="form-control" placeholder="Temperatura" id="value" oninput="Calculate()" autofocus name="Value">
+        </div>
+        <div class="row m-1">
+            <h5>to</h5>
+        </div>
+        <div class="row m-1">
+            <select class="form-control" name="ConvertTo" id="selectValue">
+                <option value="F">Farenheit</option>
+                <option value="C">Celcius</option>
+            </select>
+        </div>
+        <div class="row m-1">
+            <h2>=</h2>
+        </div>
+        <div class="row m-1">
+            <input type="number" readonly class="form-control" id="result" />
+        </div>
+    </div>
+
+</form>
+
+<legend class="m-4">Conversor de divisas</legend>
+
+<form method="post">
+    <div class="form-row">
+        <div class="col m-1">
+            <input type="number" class="form-control" placeholder="Dinero" id="moneda" oninput="CalculateMoney()" autofocus name="moneda">
+        </div>
+        <div class="row m-1">
+            <h5>to</h5>
+        </div>
+        <div class="row m-1">
+            <select class="form-control" name="Divisa" id="Divisa">
+                <option value="D">Dolares</option>
+                <option value="P">Pesos</option>
+            </select>
+        </div>
+        <div class="row m-1">
+            <h2>=</h2>
+        </div>
+        <div class="row m-1">
+            <input type="number" readonly class="form-control" id="resultChange" />
+        </div>
+    </div>
+
+</form>
+
+<script>
+    const inputvalue = document.getElementById("value");
+    const SelectValue = document.getElementById("selectValue");
+    const resultValue = document.getElementById("result");
+    const Moneda = document.getElementById("moneda");
+    const SelectDivisa = document.getElementById("Divisa");
+    const Resultdivisa = document.getElementById("resultChange");
+
+    function Calculate() {
+        if (SelectValue.value == "F") {
+            resultValue.value = (inputvalue.value * 1.8) + 32
+        }
+        else {
+            resultValue.value = (inputvalue.value - 32) / (9/5)
+        }
+    }
+    function CalculateMoney() {
+        if (SelectDivisa.value == "P") {
+            Resultdivisa.value = (Moneda.value * 58.58)
+        }
+        else {
+            Resultdivisa.value = (Moneda.value / 58.88)
+        }
+    }
+
+
+</script>

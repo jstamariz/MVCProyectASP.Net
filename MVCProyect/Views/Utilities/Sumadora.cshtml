@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Sumadora";
+}
+<legend class="m-4">Sumadora</legend>
+
+<form>
+    <div class="form-row">
+        <div class="row m-3">
+            <input id="val1" type="number" class="form-control" oninput="operation()" autofocus placeholder="Valor" />
+        </div>
+        <div class="form-row m-3">
+            <select id="selectOperation" onchange="operation()" class="form-control">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="x">x</option>
+                <option value="/">/</option>
+            </select>
+        </div>
+        <div class="row m-3">
+            <input id="val2" type="number" class="form-control" oninput="operation()" placeholder="Valor" />
+        </div>
+        <div class="row m-3">
+            <h2>=</h2>
+        </div>
+        <div class="row m-3">
+            <input id="resultInput" type="number" readonly class="form-control" placeholder="Resultado" />
+        </div>
+    </div>
+</form>
+
+<script>
+    const val1 = document.getElementById("val1");
+    const val2 = document.getElementById("val2");
+    const selectOperation = document.getElementById("selectOperation");
+    const resultInput = document.getElementById("resultInput");
+
+    function operation() {
+        if (selectOperation.value == "+") {
+            resultInput.value = parseInt(val1.value) + parseInt(val2.value);
+        }
+        if (selectOperation.value == "-") {
+            resultInput.value = val1.value - val2.value;
+        }
+        if (selectOperation.value == "x") {
+            resultInput.value = val1.value * val2.value;
+        }
+        if (selectOperation.value == "/" && val2.value != 0) {
+            resultInput.value = val1.value / val2.value;
+        }
+    }
+
+
+</script>
+

@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cargos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cargo" Type="nchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cedula" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Salario" Type="money" Nullable="false" />
+          <Property Name="Fecha_ingreso" Type="date" Nullable="false" />
+          <Property Name="Telefono" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cargo_ID" Type="int" Nullable="false" />
+          <Property Name="Departamento_ID" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nomina">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Año" Type="int" Nullable="false" />
+          <Property Name="Mes" Type="int" Nullable="false" />
+          <Property Name="Nomina" Type="money" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Cargos_Empleados">
+          <End Role="Cargos" Type="Self.Cargos" Multiplicity="1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="Cargo_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departemento_Empleados">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="Departamento_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CreateEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido" Type="varchar" Mode="In" />
+          <Parameter Name="cedula" Type="varchar" Mode="In" />
+          <Parameter Name="salario" Type="money" Mode="In" />
+          <Parameter Name="fecha_ingreso" Type="date" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="cargo_id" Type="int" Mode="In" />
+          <Parameter Name="departamento_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetSalaries" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Month" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Cargos" EntityType="Self.Cargos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nomina" EntityType="Self.Nomina" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cargos_Empleados" Association="Self.FK_Cargos_Empleados">
+            <End Role="Cargos" EntitySet="Cargos" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departemento_Empleados" Association="Self.FK_Departemento_Empleados">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cargos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cargo" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_Cargos_Empleados" FromRole="Cargos" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK_Departemento_Empleados" FromRole="Departamentos" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Cedula" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Salario" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Fecha_ingreso" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Cargo_ID" Type="Int32" Nullable="false" />
+          <Property Name="Departamento_ID" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cargos" Relationship="Self.FK_Cargos_Empleados" FromRole="Empleados" ToRole="Cargos" />
+          <NavigationProperty Name="Departamentos" Relationship="Self.FK_Departemento_Empleados" FromRole="Empleados" ToRole="Departamentos" />
+        </EntityType>
+        <EntityType Name="Nomina">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Año" Type="Int32" Nullable="false" />
+          <Property Name="Mes" Type="Int32" Nullable="false" />
+          <Property Name="Nomina1" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Cargos_Empleados">
+          <End Role="Cargos" Type="Self.Cargos" Multiplicity="1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cargos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="Cargo_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Departemento_Empleados">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="Departamento_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbModel" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cargos" EntityType="Self.Cargos" />
+          <EntitySet Name="Departamentos" EntityType="Self.Departamentos" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" />
+          <EntitySet Name="Nomina" EntityType="Self.Nomina" />
+          <AssociationSet Name="FK_Cargos_Empleados" Association="Self.FK_Cargos_Empleados">
+            <End Role="Cargos" EntitySet="Cargos" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Departemento_Empleados" Association="Self.FK_Departemento_Empleados">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <FunctionImport Name="CreateEmployee">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido" Mode="In" Type="String" />
+            <Parameter Name="cedula" Mode="In" Type="String" />
+            <Parameter Name="salario" Mode="In" Type="Decimal" />
+            <Parameter Name="fecha_ingreso" Mode="In" Type="DateTime" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="cargo_id" Mode="In" Type="Int32" />
+            <Parameter Name="departamento_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetSalaries" ReturnType="Collection(Decimal)">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Month" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DbModel">
+          <EntitySetMapping Name="Cargos">
+            <EntityTypeMapping TypeName="DatabaseModel.Cargos">
+              <MappingFragment StoreEntitySet="Cargos">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamentos">
+            <EntityTypeMapping TypeName="DatabaseModel.Departamentos">
+              <MappingFragment StoreEntitySet="Departamentos">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleados">
+            <EntityTypeMapping TypeName="DatabaseModel.Empleados">
+              <MappingFragment StoreEntitySet="Empleados">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Salario" ColumnName="Salario" />
+                <ScalarProperty Name="Fecha_ingreso" ColumnName="Fecha_ingreso" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Cargo_ID" ColumnName="Cargo_ID" />
+                <ScalarProperty Name="Departamento_ID" ColumnName="Departamento_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nomina">
+            <EntityTypeMapping TypeName="DatabaseModel.Nomina">
+              <MappingFragment StoreEntitySet="Nomina">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Año" ColumnName="Año" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Nomina1" ColumnName="Nomina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CreateEmployee" FunctionName="DatabaseModel.Store.CreateEmployee" />
+          <FunctionImportMapping FunctionImportName="GetSalaries" FunctionName="DatabaseModel.Store.GetSalaries" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

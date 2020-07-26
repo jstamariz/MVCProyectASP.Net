@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Aplicacion de Jorge Tamariz</h1>
+    <p class="lead">Esta aplicacion esta hecha con ASP .NET con MVC, fue muy dificil pero como yo soy increible pude lograrlo. La aplicacion cuenta con dos modulos, uno de empleados y otro de utilidades, mas informacion abajo</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Modulo de empleados</h2>
+        <p>
+           En este modulos hay un CRUD de empleados, tambien tiene la funcion de calcular la nomina de los mismas con un Stored Procedure hecho en SQL Server
+        </p>
+        <p> @Html.ActionLink("Modulo de empleados","index","Empleados", new { @class = "btn btn-primary" }) </p>
+    </div>
+    <div class="col-md-6">
+        <h2>Modulo de Utilidades</h2>
+        <p>Modulo con una sumadora y Conversor de unidades</p>
+        <p> @Html.ActionLink("Modulo de Utilidades", "index", "Utilidades", new { @class = "btn btn-secondary" }) </p>
+    </div>
+</div>

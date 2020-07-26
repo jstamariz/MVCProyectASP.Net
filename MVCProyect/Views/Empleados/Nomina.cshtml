@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MVCMeTieneJarto.Models.Nomina>
+
+@{
+    ViewBag.Title = "Nomina";
+}
+
+<legend class="m-4">Nomina</legend>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Año)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mes)
+        </th>
+        <th>
+           Nomina
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Año)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nomina1)
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.ActionLink("Calcular Nomina", "CalcularNomina", "Empleados", new {@class = "btn btn-primary btn-block" })
